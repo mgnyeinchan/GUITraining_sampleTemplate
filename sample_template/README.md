@@ -68,3 +68,26 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+CREATE DATABASE mydatabase;
+
+USE mydatabase;
+
+CREATE USER 'nc'@'localhost' IDENTIFIED BY '123456';
+
+GRANT ALL PRIVILEGES ON *.* TO 'nc'@'localhost' WITH GRANT OPTION;
+
+SHOW GRANTS FOR 'nc'@'localhost';
+
+ALTER USER 'nc'@'localhost' IDENTIFIED WITH mysql_native_password BY '123456';
+
+flush privileges;
+
+CREATE TABLE tbl_shop(
+id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+name VARCHAR(100) NOT NULL,
+address VARCHAR(200) NOT NULL,
+phone decimal(10,0),
+bio varchar(50),
+image varchar(1000)
+);
