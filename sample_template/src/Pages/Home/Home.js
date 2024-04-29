@@ -33,7 +33,7 @@ const Home = () => {
     const ShopImageHandleChange = (event)=> {
         setShopImage(event.target.value);
     }
-    
+    const [UpdateFlag,setUpdateFlag] = useState(false);
     const CreateShop = () => {
         
         axios.post("http://localhost:8000/insert", {
@@ -58,23 +58,15 @@ const Home = () => {
         
     }
     const EDITFunction = (event,shopID)=> {
-        axios.post("http://localhost:8000/EDITFunction", {
-            id : shopID,
-            name : ShopName,
-            address : ShopAddress,
-            phone : ShopPhone,
-            bio : ShopBio,
-            image : ShopImage,
-            }).then((response) => {
-            alert("New Shop is EDITED!!!")
-            console.log("Post successful!")
-            axios.get("http://localhost:8000/getAllShops").then(response => {
-                setShops(response.data)
-            });
-            }).catch(() => {
-            alert("not")
-            console.log("Oops, request failed!")
-        })
+        setUpdateFlag(true);
+        axios.get("http://localhost:8000/getShopByID/"+shopID).then(response => {
+            // alert(JSON.stringify(response.data))
+            setShopName(response.data[0].name);
+            setShopAddress(response.data[0].address);
+            setShopPhone(response.data[0].phone);
+            setShopBio(response.data[0].bio);
+            setShopImage(response.data[0].image);
+        });
     }
     const DELETEFunction = (event,shopID)=> {
         // axios.delete(`http://localhost:8000/DELETEFunction/${shopID}`).then((response) => {
@@ -163,6 +155,7 @@ proident, sunt in culpa qui officia deserunt mollit anim id est laborum
                 <br/>
                 <Container>
                     <Row>
+                        
                     {Shops.map((data,index)=>(
                         <Col sm={4} style={{padding: "10px",position: "relative"}}>
                             {Cookie.get('auth_role') == 'admin'?(
@@ -208,12 +201,12 @@ proident, sunt in culpa qui officia deserunt mollit anim id est laborum
                 {Cookie.get('auth_role') == 'admin'?(
                     <div className={CommonCss.GalleryFormContainer}>
                             <h3>Create New Shop</h3>
-                            <p><input type="text" placeholder="name" onChange={shopNameHandleChange}></input></p>
-                            <p><input type="text" placeholder="address" onChange={ShopAddressHandleChange}></input></p>
-                            <p><input type="text" placeholder="phone" onChange={ShopPhoneHandleChange}></input></p>
-                            <p><input type="text" placeholder="bio" onChange={ShopBioHandleChange}></input></p>
-                            <p><input type="text" placeholder="image" onChange={ShopImageHandleChange}></input></p>
-                            <p><button onClick={CreateShop}>Create</button></p>
+                            <p><input type="text" placeholder="name" value={ShopName} onChange={shopNameHandleChange}></input></p>
+                            <p><input type="text" placeholder="address" value={ShopAddress} onChange={ShopAddressHandleChange}></input></p>
+                            <p><input type="text" placeholder="phone" value={ShopPhone} onChange={ShopPhoneHandleChange}></input></p>
+                            <p><input type="text" placeholder="bio" value={ShopBio} onChange={ShopBioHandleChange}></input></p>
+                            <p><input type="text" placeholder="image" value={ShopImage} onChange={ShopImageHandleChange}></input></p>
+                            <p><button onClick={CreateShop}>{UpdateFlag== true?'Update':'Create'}</button></p>
                     </div>
                 ):(
                     <span></span>

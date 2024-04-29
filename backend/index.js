@@ -86,6 +86,28 @@ app.post("/insert",(req,res)=>{
         });
     })
 });
+app.get("/getShopByID/:id",(req,res)=>{
+    var id = req.params.id;
+
+    let connection = mysql.createConnection({
+        host: 'localhost',
+        user: 'nc',
+        password: '123456',
+        database: 'mydatabase'
+    });
+    connection.connect(function(err) {
+        if(err) throw err;
+        console.log('Connected to the MySQL server.');
+        var sql = "select * from tbl_shop where id = "+id;
+        console.log("query : "+sql);
+        connection.query(sql,function(err,result){
+            res.send(result)
+            if(err) throw err;
+            console.log("1 record inserted");
+        });
+    })
+    
+});
 
 app.listen(port,function(){
     console.log("Server is running on http://localhost:"+port);
