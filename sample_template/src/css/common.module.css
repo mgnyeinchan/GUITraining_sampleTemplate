@@ -1,0 +1,100 @@
+.title{
+    color: #8a8c8d;
+    font-weight: bold;
+    font-size: 24px;
+}
+.bodyText{
+    width: 60%;
+    display: block;
+    margin: auto;
+}
+.NavigationContainer{
+    margin: 0;
+    background-color: rgb(53, 52, 52);
+    list-style-type: none;
+    overflow: hidden;
+    padding: 0;
+    position: fixed;
+    width: 100%;
+    z-index: 2;
+}
+.NavigationContainer li {
+    float: left;
+    padding: 15px;
+}
+.NavigationContainer li a {
+    color: #A2AAAD;
+    text-decoration: none;
+}
+.NavigationContainer li a:hover{
+    color: white;
+}
+.MainText{
+    text-align: center;
+    padding-top: 5%;
+}
+.GalleryContainer{
+    width: 90%;
+    height: 200px;
+    display: block;
+    margin: auto;
+    /* border: 1px solid red; */
+    overflow: hidden;
+}
+.GalleryImgs{
+    width: 120%;
+}
+.GalleryDesc{
+    /* border: 1px solid red; */
+    width: 90%;
+    display: block;
+    margin: auto;
+    overflow: hidden;
+    padding: 10px;
+    box-sizing: border-box;
+    background-color: #f2f2f2;
+}
+.GalleryBtn{
+    width: 90%;
+    display: block;
+    margin: auto;
+    border: none;
+    font-size: 14px;
+    padding: 10px;
+    background-color: #bec1c2;
+}
+.LoginContainer{
+    width: 170px;
+    display: block;
+    margin: auto;
+    padding-top: 70px;
+}
+.GalleryFormContainer{
+    width: 170px;
+    display: block;
+    margin: auto;
+}
+.GalleryDelete{
+    position: absolute;
+    right: 40px;
+    background-color: white;
+    color: red;
+    padding: 5px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+.GalleryDelete:hover{
+    color: black;
+}
+.GalleryEdit{
+    position: absolute;
+    left: 40px;
+    background-color: white;
+    color: green;
+    padding: 5px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+.GalleryEdit:hover{
+    color: black;
+}

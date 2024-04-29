@@ -1,0 +1,56 @@
+import React, { useState } from "react";
+import Navigation from "../Navigation/Navigation";
+import CommonCss from "../../css/common.module.css";
+import Cookie   from "js-cookie";
+import { useNavigate } from "react-router-dom";
+
+const Login = () => {
+    const navigate = useNavigate();
+
+    const [username,setusername] = useState("");
+    const usernameHandleChange = (event)=>{
+        setusername(event.target.value);
+    }
+    const [password,setpassword] = useState("");
+    const passwordHandleChange = (event)=>{
+        setpassword(event.target.value);
+    }
+    const [Error,setError] = useState("");
+    const Login = () => {
+        
+        var tbl_user = [{"username":"mgmg","password":"123456","email":"mgmg@gmail.com","phone": 93332,"role":"admin"},
+        {"username":"kyaw","password":"654321","email":"kyaw@gmail.com","phone": 93332,"role":"user"}];
+        
+        
+        for(var i=0;i<tbl_user.length;i++){
+            if(username == tbl_user[i].username){
+                if(password == tbl_user[i].password){
+                    Cookie.set("auth_username",username);
+                    Cookie.set("auth_email",tbl_user[i].email);
+                    Cookie.set("auth_role",tbl_user[i].role);
+                    navigate("/");
+                    setError("");
+                    break;
+                }else{
+                    setError("Password does not match!");break;
+                }
+            }else{
+                setError("User not found!");
+            }
+        }
+    }
+    return (
+        <div>
+            <Navigation/>
+            <div className={CommonCss.LoginContainer}>
+                <h3>Login</h3>
+                <p style={{color: "red"}}>{Error}</p>
+                <p><input type="text" onChange={(e)=>usernameHandleChange(e)}></input></p>
+                <p><input type="password" onChange={(e)=>passwordHandleChange(e)}></input></p>
+                <p><button onClick={Login}>Login</button></p>
+                
+            </div>
+        </div>
+    )
+}
+export default Login;
