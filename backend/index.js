@@ -108,7 +108,59 @@ app.get("/getShopByID/:id",(req,res)=>{
     })
     
 });
+app.post("/login",(req,res)=>{
+    var username = req.body.username;
+    var password = req.body.password;
 
+    
+    let connection = mysql.createConnection({
+        host: 'localhost',
+        user: 'nc',
+        password: '123456',
+        database: 'mydatabase'
+    });
+    connection.connect(function(err) {
+        if(err) throw err;
+        console.log('Connected to the MySQL server.');
+        var sql = "select * from tbl_user where username = '"+username+"'";
+        console.log("query : "+sql);
+        connection.query(sql,function(err,result){
+            if(result.length > 0){
+                console.log(JSON.stringify(result))
+                let connection = mysql.createConnection({
+                    host: 'localhost',
+                    user: 'nc',
+                    password: '123456',
+                    database: 'mydatabase'
+                });
+                connection.connect(function(err) {
+                    if(err) throw err;
+                    console.log('Connected to the MySQL server.');
+                    var sql = "select user_id,username,email,phone,role from tbl_user where password = '"+password+"' and user_id = "+result[0].user_id;
+                    console.log("query : "+sql);
+                    connection.query(sql,function(err,result){
+                        if(result.length>0){
+                            console.log("login success");
+                            res.send(result);
+                        }else{
+                            res.send("password invalid")
+                            console.log("password invalid");
+                        }
+                        // res.send(result)
+                        if(err) throw err;
+                        // console.log("1 record inserted");
+                    });
+                })
+                
+            }else{
+                console.log("User Not Found!")
+                res.send("User Not Found!");  
+            }
+            
+            if(err) throw err;
+        });
+    })
+});
 app.listen(port,function(){
     console.log("Server is running on http://localhost:"+port);
 });

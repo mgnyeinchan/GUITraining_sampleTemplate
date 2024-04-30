@@ -92,4 +92,16 @@ bio varchar(50),
 image varchar(1000)
 );
 
+CREATE TABLE tbl_user(
+    user_id int NOT NULL AUTO_INCREMENT PRIMArY KEY,
+    username varchar(255) NOT NULL,
+    password varchar(255) NOT NULL,
+    email varchar(255) NOT NULL,
+    phone int,
+    role varchar(255) NOT NULL
+);
+
+insert into tbl_user(username,password,email,phone,role) values('mgmg','123456','mgmg@gmail.com',93222,'admin');
+insert into tbl_user(username,password,email,phone,role) values('mya','123456','mya@gmail.com',93222,'user');
+
 
