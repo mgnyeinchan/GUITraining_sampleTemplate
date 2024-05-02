@@ -141,10 +141,14 @@ app.post("/login",(req,res)=>{
                     connection.query(sql,function(err,result){
                         if(result.length>0){
                             console.log("login success");
-                            res.send(result);
+                            // res.send(result);
+                            res.status(200).json({
+                                status: 200,
+                                data: result
+                            })
                         }else{
-                            res.send("password invalid")
-                            console.log("password invalid");
+                            res.send("Password invalid")
+                            console.log("Password invalid");
                         }
                         // res.send(result)
                         if(err) throw err;

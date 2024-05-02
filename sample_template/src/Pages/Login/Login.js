@@ -22,11 +22,24 @@ const Login = () => {
             username : username,
             password : password,
             }).then((response) => {
-                Cookie.set("auth_username",response.data[0].username);
-                Cookie.set("auth_email",response.data[0].email);
-                Cookie.set("auth_role",response.data[0].role);
-                navigate("/");
-                setError("");
+                if(response.data.status == 200){
+                    Cookie.set("auth_username",response.data.data[0].username);
+                    Cookie.set("auth_email",response.data.data[0].email);
+                    Cookie.set("auth_role",response.data.data[0].role);
+                    navigate("/");
+                }else{
+                    // login fail
+                    setError(response.data);
+                }
+                // if(response.data.status == 200){
+                //     Cookie.set("auth_username",response.data[0].username);
+                //     Cookie.set("auth_email",response.data[0].email);
+                //     Cookie.set("auth_role",response.data[0].role);
+                //     navigate("/");
+                //     setError("");
+                // }else{
+                //     alert(response.data)
+                // }
             }).catch(() => {
             alert("Login Request faild");
             console.log("Oops, request failed!")
