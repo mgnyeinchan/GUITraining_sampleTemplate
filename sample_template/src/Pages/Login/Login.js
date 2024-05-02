@@ -22,7 +22,11 @@ const Login = () => {
             username : username,
             password : password,
             }).then((response) => {
-            alert(JSON.stringify(response.data));
+                Cookie.set("auth_username",response.data[0].username);
+                Cookie.set("auth_email",response.data[0].email);
+                Cookie.set("auth_role",response.data[0].role);
+                navigate("/");
+                setError("");
             }).catch(() => {
             alert("Login Request faild");
             console.log("Oops, request failed!")

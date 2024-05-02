@@ -33,31 +33,77 @@ const Home = () => {
     const ShopImageHandleChange = (event)=> {
         setShopImage(event.target.value);
     }
+    
+    const [UpdatedId,setUpdatedId] = useState("");
     const [UpdateFlag,setUpdateFlag] = useState(false);
-    const CreateShop = () => {
-        
-        axios.post("http://localhost:8000/insert", {
-            name : ShopName,
-            address : ShopAddress,
-            phone : ShopPhone,
-            bio : ShopBio,
-            image : ShopImage,
+    const [ShopEntryFormHide,setShopEntryFormHide] = useState(true);
+    const SaveFunction = () => {
+        if(UpdateFlag == true){
+            // update
+            axios.post("http://localhost:8000/update/"+UpdatedId, {
+                name : ShopName,
+                address : ShopAddress,
+                phone : ShopPhone,
+                bio : ShopBio,
+                image : ShopImage,
             }).then((response) => {
-            alert("New Shop is inserted")
-            console.log("Post successful!")
-            axios.get("http://localhost:8000/getAllShops").then(response => {
-                setShops(response.data)
-            });
+                alert(response.data);
+                axios.get("http://localhost:8000/getAllShops").then(response => {
+                    setShops(response.data)
+                });
             }).catch(() => {
-            alert("not")
-            console.log("Oops, request failed!")
-        })
+                alert("not")
+                console.log("Oops, request failed!")
+            })
+        }else{
+            // create
+            axios.post("http://localhost:8000/insert", {
+                name : ShopName,
+                address : ShopAddress,
+                phone : ShopPhone,
+                bio : ShopBio,
+                image : ShopImage,
+            }).then((response) => {
+                alert("New Shop is inserted")
+                console.log("Post successful!")
+                axios.get("http://localhost:8000/getAllShops").then(response => {
+                    setShops(response.data)
+                });
+            }).catch(() => {
+                alert("not")
+                console.log("Oops, request failed!")
+            })
+        }
+        
         // window.location.reload();
+    }
+    
+    const CancelFunction = (event)=>{
+        setShopEntryFormHide(true);
+
+        ClearFunction();
+    }
+
+    const ClearFunction = ()=>{
+        // clear variables
+        setUpdateFlag(true);
+        setUpdatedId("");
+        setShopName("");
+        setShopAddress("");
+        setShopPhone("");
+        setShopBio("");
+        setShopImage("");
     }
     const BuyNow = () => {
         
     }
+    const CREATEFunction = (event)=>{
+        setShopEntryFormHide(false);
+        ClearFunction();
+    }
     const EDITFunction = (event,shopID)=> {
+        setShopEntryFormHide(false);
+        setUpdatedId(shopID);
         setUpdateFlag(true);
         axios.get("http://localhost:8000/getShopByID/"+shopID).then(response => {
             // alert(JSON.stringify(response.data))
@@ -153,6 +199,8 @@ proident, sunt in culpa qui officia deserunt mollit anim id est laborum
             <div style={{backgroundColor: "white",
             }}>
                 <br/>
+                <div style={{float: "right",padding: "2%"}}><button className={CommonCss.successBtns} onClick={(e)=>CREATEFunction(e)}>Create</button></div>
+                {/* <br/> */}
                 <Container>
                     <Row>
                         
@@ -199,14 +247,15 @@ proident, sunt in culpa qui officia deserunt mollit anim id est laborum
                 </p>
                 </div>
                 {Cookie.get('auth_role') == 'admin'?(
-                    <div className={CommonCss.GalleryFormContainer}>
-                            <h3>Create New Shop</h3>
+                    <div className={CommonCss.GalleryFormContainer} style={{display: ShopEntryFormHide?"none":"block"}}>
+                            <h3>{UpdateFlag==true?"Update Shop":"Create New Shop"}</h3>
                             <p><input type="text" placeholder="name" value={ShopName} onChange={shopNameHandleChange}></input></p>
                             <p><input type="text" placeholder="address" value={ShopAddress} onChange={ShopAddressHandleChange}></input></p>
                             <p><input type="text" placeholder="phone" value={ShopPhone} onChange={ShopPhoneHandleChange}></input></p>
                             <p><input type="text" placeholder="bio" value={ShopBio} onChange={ShopBioHandleChange}></input></p>
                             <p><input type="text" placeholder="image" value={ShopImage} onChange={ShopImageHandleChange}></input></p>
-                            <p><button onClick={CreateShop}>{UpdateFlag== true?'Update':'Create'}</button></p>
+                            <span><button onClick={SaveFunction}>{UpdateFlag== true?'Update':'Create'}</button></span>
+                            <span style={{paddingLeft: "20px"}}><button onClick={CancelFunction}>Cancel</button></span>
                     </div>
                 ):(
                     <span></span>

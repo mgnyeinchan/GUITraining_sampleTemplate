@@ -161,6 +161,42 @@ app.post("/login",(req,res)=>{
         });
     })
 });
+app.post("/update/:id",(req,res)=>{
+    var id = req.params.id;
+    var name = req.body.name;
+    var address = req.body.address;
+    var phone = req.body.phone;
+    var bio = req.body.bio;
+    var image = req.body.image;
+    console.log(
+        "id = "+id+" , "+
+        "name = "+name+" , "+
+        "address = "+address+" , "+
+        "phone = "+phone+" , "+
+        "bio = "+bio+" , "+
+        "image = "+image+" , "
+    );
+    
+    
+    let connection = mysql.createConnection({
+        host: 'localhost',
+        user: 'nc',
+        password: '123456',
+        database: 'mydatabase'
+    });
+    connection.connect(function(err) {
+        if(err) throw err;
+        console.log('Connected to the MySQL server.');
+        var sql = "update tbl_shop set name = '"+name+"', address = '"+address+"',phone = "+phone+",bio = '"+bio+"',image = '"+image+"' where id = 18";
+        console.log(sql);
+        connection.query(sql,function(err,result){
+            res.send("Successfully Updated!")
+            if(err) throw err;
+            // console.log("1 record inserted");
+        });
+    })
+    
+});
 app.listen(port,function(){
     console.log("Server is running on http://localhost:"+port);
 });

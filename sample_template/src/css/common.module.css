@@ -73,6 +73,7 @@
     width: 170px;
     display: block;
     margin: auto;
+    padding-bottom: 3%;
 }
 .GalleryDelete{
     position: absolute;
@@ -97,4 +98,15 @@
 }
 .GalleryEdit:hover{
     color: black;
+}
+.successBtns{
+    background-color: rgb(87, 187, 87);
+    color: white;
+    padding: 10px;
+    font-size: 18px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+.successBtns:hover{
+    box-shadow: 4px 4px 8px grey;
 }
