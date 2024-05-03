@@ -23,7 +23,7 @@
     padding: 15px;
 }
 .NavigationContainer li a {
-    color: #A2AAAD;
+    color: white;
     text-decoration: none;
 }
 .NavigationContainer li a:hover{
@@ -109,4 +109,29 @@
 }
 .successBtns:hover{
     box-shadow: 4px 4px 8px grey;
+}
+.DashbardCards{
+    box-shadow: 4px 4px 8px grey;
+    padding: 5%;
+    border-radius: 8px;
+    position: relative;
+    width: 80%;
+    height: 120px;
+}
+.DashbardCardsTitle{
+    font-size: 18px;
+    color: teal;
+    font-weight: bold;
+}
+.DashbardCardsBody{
+    color: black;
+    font-size: 18px;
+}
+.DashbardCardsIcons{
+    position: absolute;
+    display: block;
+    margin: auto;
+    color: teal;
+    top: 50%;
+    transform: translate(0,-50%);
 }

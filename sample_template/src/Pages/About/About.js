@@ -5,10 +5,12 @@ const About = () => {
     return (
         <div>
             <Navigation/>
-            <div style={{zIndex: 2,position: "relative",color: "white"}}>Welcome About</div>
-            {/* <div style={{width: "300px",height: "300px",backgroundColor: "red"}}>
-
-            </div> */}
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            About
         </div>
     )
 }

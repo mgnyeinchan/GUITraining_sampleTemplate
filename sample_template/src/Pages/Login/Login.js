@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Navigation from "../Navigation/Navigation";
 import CommonCss from "../../css/common.module.css";
 import Cookie   from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import Authenticate from "../Authentication/Authenticate";
 
 const Login = () => {
     const navigate = useNavigate();
@@ -26,6 +27,7 @@ const Login = () => {
                     Cookie.set("auth_username",response.data.data[0].username);
                     Cookie.set("auth_email",response.data.data[0].email);
                     Cookie.set("auth_role",response.data.data[0].role);
+                    Cookie.set("authenticated",true);
                     navigate("/");
                 }else{
                     // login fail
@@ -66,6 +68,11 @@ const Login = () => {
         //     }
         // }
     }
+    useEffect(()=>{
+        if(Authenticate.isAuthenticated()){ // logined
+            navigate("/");
+        }
+    },[]);    
     return (
         <div>
             <Navigation/>

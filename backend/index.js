@@ -34,6 +34,24 @@ app.get("/getAllShops",(req,res)=>{
         });
     })
 });
+app.get("/getTotalUserCount",(req,res)=>{
+    let connection = mysql.createConnection({
+            host: 'localhost',
+            user: 'nc',
+            password: '123456',
+            database: 'mydatabase'
+    });
+    connection.connect(function(err) {
+        if(err) throw err;
+        console.log('Connected to the MySQL server.');
+        var sql = "select count(*) count from tbl_user";
+        connection.query(sql,function(err,result){
+            res.send(result)
+            if(err) throw err;
+            console.log("ok");
+        });
+    })
+});
 app.delete("/DELETEFunction",(req,res)=>{
     var id = req.body.id;
     console.log("Delete id ");
